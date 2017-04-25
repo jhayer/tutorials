@@ -3,10 +3,12 @@
 ### Table of content
 * [Introduction](#introduction)
 * [Softwares Required for this Tutorial](#softwares-required-for-this-tutorial)
-* [Downloading the Dataset](#downloading-the-dataset)
+* [Login to the training server and find the dataset](#login-to-the-training-server-and-find-the-dataset)
 * [Quality control](#quality-control)
+* [Taxonomic classification with Kaiju](#taxonomic-classification-with-Kaiju)
 * [De novo assembly](#de-novo-assembly)
 * [Alignment of the contigs to a reference genome](#alignment-of-the-contigs-to-a-reference-genome)
+* [Mapping the reads on the viral contigs](#mapping-the-reads-on-the-viral-contigs)
 
 
 ### Introduction
@@ -20,7 +22,6 @@ Twenty-one (21) intestinal samples were collected during 2011 in Hungary at nine
 On this metagenomic dataset, we will perform:
 - quality control
 - taxonomic classification of the reads
-# -> do we do tax class before assembly or not?
 - de novo assembly of the trimmed reads
 - alignment of the obtained contigs to the reference genome of the detected virus of interest
 - mapping of all the dataset's reads back to the viral contigs to close the gaps
@@ -31,35 +32,31 @@ On this metagenomic dataset, we will perform:
 
 The ones that we will use on line:
 
-Taxonomic classification:
-* [Kaiju]()
-
+* [Kaiju](http://kaiju.binf.ku.dk)
 
 The ones that we will use on our server:
+* [Sickle](https://github.com/najoshi/sickle)
+* [SPAdes](http://bioinf.spbau.ru/spades)
+* [Abacas](http://abacas.sourceforge.net)
+* [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 
-Quality control:
+The ones that you install on your machine:
 * [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-* [Sickle]()
+* [Ugene](http://ugene.net)
 
-Assembly:
-* [SPAdes]()
-
-Alignment / Mapping:
-* [Abacas]()
-* [Bowtie2]()
-
-The one that you install on your machine:
-* [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-
-### Downloading the dataset
+### Login to the training server and find the dataset
 
 We will login to a training server called eBioKit by typing the following command in the terminal (replacing the X by the number that we give to you):
 ```
 ssh studentX@77.235.253.122
 ```
 This server will be use for running some tools during all this tutorial.
+The Illumina reads files (R1 and R2) are in your home directory:
+```
+965_S11_L001_R1_001.fastq.gz
+965_S11_L001_R2_001.fastq.gz
+```
 
-# TODO: can we copy data from Github here?
 
 ## Quality control
 
@@ -68,11 +65,24 @@ To check the quality of the sequence data we will use a tool called FastQC. With
 
 FastQC has a graphical interface and can be downloaded and run on a Windows or Linux computer without installation. It is available [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
-However, FastQC is also available as a command line utility on the training server you are using. You can load the module and execute the program as follows:
+So you can copy the data on your laptop by typing this command line from the terminal of your laptop (in your working directory):
 
-```
+`
+scp studentX@77.235.253.122:/Users/studentX/965_*.fastq.gz .
+`
+
+Then run fastqc from the terminal by typing:
+
+`
+fastqc &
+`
+and you will get the Graphical User Interface (GUI) in which you can open your data files.
+
+However, FastQC is also available as a command line utility on the training server you are using. You can execute the program as follows:
+
+`
 fastqc $read1 $read2
-```
+`
 
 which will produce both a .zip archive containing all the plots, and a html document for you to look at the result in your browser.
 
@@ -102,9 +112,19 @@ Set the quality score to 25. This means the trimmer will work its way from both 
 ```
 sickle pe -f input_file1.fastq -r input_file2.fastq -t sanger \
 -o trimmed_output_file1.fastq -p trimmed_output_file2.fastq \
--s trimmed_singles_file.fastq -q 25
+-s trimmed_singles_file.fastq -q 30
 ```
 What did the trimming do to the per-base sequence quality, the per sequence quality scores and the sequence length distribution? Run FastQC again to find out.
+
+You copy the trimmed files produced by Sickle on your laptop and gzip them for FastQC and for the next step.
+
+On your laptop, in your working directory:
+
+```
+scp studentX@77.235.253.122:/Users/studentX/trimmed*.fastq .
+gzip trimmed_file1.fastq
+gzip trimmed_file2.fastq
+```
 
 ## Taxonomic classification with Kaiju
 
@@ -122,7 +142,7 @@ In order to get longer sequences from the detected virus, and hopefully to obtai
 
 # TODO: check the SPAdes command for metagenomic (and the time)
 ```
-spades.py -k 21,33,55,77,99 --careful --meta -1 read_1.fastq -2 read_2.fastq -o output
+spades.py -k 21,33,77 --careful --only-assembler -1 read_1.fastq -2 read_2.fastq -o output
 ```
 
 This will produce a series of outputs. The scaffolds will be in fasta format.
@@ -132,7 +152,15 @@ This will produce a series of outputs. The scaffolds will be in fasta format.
 ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.
 
 ```
-abacas.pl -r <reference file: single fasta> -q <query sequence file: fasta> -p <nucmer> -d -m 
+abacas.pl -r <reference file: single fasta> -q <query sequence file: fasta> -p <nucmer> -d -m
 ```
 
 You will find [here](http://www.ebi.ac.uk/ena/data/view/JF713713) the reference genome to use
+
+## Mapping the reads on the viral contigs
+
+We will use Bowtie2 for mapping the reads back to the obtained viral contigs,
+
+## Genes prediction and functional annotation
+
+We will use [GeneMark](http://exon.gatech.edu/GeneMark/) for predicting the genes from our assembled genome.
