@@ -147,23 +147,23 @@ spades.py -o SPAdes --meta --only-assembler -k 21,33,55,77,99,127 --pe1-1 Forwar
 This will produce a series of outputs. The scaffolds will be in fasta format. You can find the results from the SPAdes assembly here
 # Add link to data on server
 SPAdes output is organised as follows:
-    contigs.fasta – resulting contigs
-    scaffolds.fasta – resulting scaffolds 
-    assembly_graph.fastg – assembly graph
-    contigs.paths – contigs paths in the assembly graph
-    scaffolds.paths – scaffolds paths in the assembly graph
-    before_rr.fasta – contigs before repeat resolution
+   * contigs.fasta – resulting contigs
+   * scaffolds.fasta – resulting scaffolds 
+   * assembly_graph.fastg – assembly graph
+   * contigs.paths – contigs paths in the assembly graph
+   * scaffolds.paths – scaffolds paths in the assembly graph
+   * before_rr.fasta – contigs before repeat resolution
 
-    corrected/ – files from read error correction
-        configs/ – configuration files for read error correction
-        corrected.yaml – internal configuration file
-        Output files with corrected reads
+   * corrected/ – files from read error correction
+   * configs/ – configuration files for read error correction
+   * corrected.yaml – internal configuration file
+   * Output files with corrected reads
 
-    params.txt – information about SPAdes parameters in this run
-    spades.log – SPAdes log
-    dataset.info – internal configuration file
-    input_dataset.yaml – internal YAML data set file
-    K<##>/ – directory containing files from the run with K=<##> 
+   * params.txt – information about SPAdes parameters in this run
+   * spades.log – SPAdes log
+   * dataset.info – internal configuration file
+   * input_dataset.yaml – internal YAML data set file
+   * K<##>/ – directory containing files from the run with K=<##> 
 You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly. 
 
 ## Alignment of the contigs to a reference genome
@@ -174,17 +174,25 @@ ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize a
 abacas -r ref_file.fasta -q query_file.fasta -p nucmer -d -m
 ```
 
-You will find [here](http://www.ebi.ac.uk/ena/data/view/JQ340310) the reference genome to use
+You will find [the](http://www.ebi.ac.uk/ena/data/view/JQ340310) reference genome to use. Inspect the resulting pseudo-molecule query_referens.fasta.
 
 ## Mapping the reads on the viral contigs
 
 After producing a putative pseudo-molecule with abacas orientation of contigs we proceed to re-mapp the trimmed data (from the sickle trimming) using Bowtie2. This enables us to get a rough estimate on how well our sequencing data covers the putative new genome as well as provide other useful statistics. We will use Bowtie2 for mapping the reads back to the obtained viral contigs. Bowtie2 requires a reference genome tu build an index from, we will use the newly created pseudo molecule for that. Additionally, Bowtie2 requires fastq data, of which we have two files that are trimmed.
 
 ```
-abacas -r ref_file.fasta -q query_file.fasta -p nucmer -d -m
+# First build an index to map towards
+# Usage: bowtie2-build [options]* <reference_in> <bt2_index_base>
+bowtie2-build -a -q astro_psudo.fasta astro_psudo_index
 
-
+# Then map the trimmed reads towards the index
+# Usage: bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
+bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fastq -2 data/trimmed_965_S11_L001_R2_001.fastq  -S astro_psudo_map.sam
 ```
+Inspect the resulting statistics. How many reads were mapped towards the psudo-molecule?
+
+Download the .sam file and open it in UGENE. Inspect the coverage statistics.
+
 
 ## Genes prediction and functional annotation
 
