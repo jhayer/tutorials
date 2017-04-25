@@ -11,8 +11,11 @@
 
 ### Introduction
 
-We will proceed in several steps to analyse an Illumina MiSeq dataset, sequenced from Pig samples.
-# -> Oskar add info here
+Astroviruses within porcine hosts show a remarkable diversity and are known to cause both mild and severe gastroenteritis. During outbreaks of suspected viral gastroenteritis in 11 production pig farms in Hungary in 2011, several samples were collected and screened by routine diagnostic approaches for common viral agents of gastroenteritis, including astroviruses. Since the conventional diagnostic assays did not yield conclusive etiological results, samples were subjected to viral metagenomics to discern putative new viral agents. Viral metagenomics aims at characterizing the virome, the complete viral genomic material of a sample. By enrichment of the virome and high-throughput sequencing the genetic material of the viruses is characterized.
+
+Twenty-one (21) intestinal samples were collected during 2011 in Hungary at nine large industrial pig production farms, which were reporting cases on diarrhoea amongst the 1-2 week piglets (Table 1). Samples were collected from both piglets and weaned pigs. The specimens were initially screen at Agricultural Office Veterinary Diagnostic Directorate, Budapest. If the samples were deemed to originate from disease forms of unknown aetiology, they were sent to the OIE Collaborating Centre for the Biotechnology-based Diagnosis of Infectious Diseases in Veterinary Medicine, SLU, Uppsala, Sweden for further studying the possible aetiology by the application of metagenomics analysis.
+
+
 
 On this metagenomic dataset, we will perform:
 - quality control
@@ -125,5 +128,11 @@ spades.py -k 21,33,55,77,99 --careful --meta -1 read_1.fastq -2 read_2.fastq -o 
 This will produce a series of outputs. The scaffolds will be in fasta format.
 
 ## Alignment of the contigs to a reference genome
+
+ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.
+
+```
+abacas.pl -r <reference file: single fasta> -q <query sequence file: fasta> -p <nucmer> -d -m 
+```
 
 You will find [here](http://www.ebi.ac.uk/ena/data/view/JF713713) the reference genome to use
