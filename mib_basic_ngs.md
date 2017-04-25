@@ -13,9 +13,9 @@
 
 ### Introduction
 
-Astroviruses within porcine hosts show a remarkable diversity and are known to cause both mild and severe gastroenteritis. During outbreaks of suspected viral gastroenteritis in 11 production pig farms in Hungary in 2011, several samples were collected and screened by routine diagnostic approaches for common viral agents of gastroenteritis, including astroviruses. Since the conventional diagnostic assays did not yield conclusive etiological results, samples were subjected to viral metagenomics to discern putative new viral agents. Viral metagenomics aims at characterizing the virome, the complete viral genomic material of a sample. By enrichment of the virome and high-throughput sequencing the genetic material of the viruses is characterized.
+[Astroviruses](http://viralzone.expasy.org/all_by_species/27.html) within porcine hosts show a remarkable diversity and are known to cause both mild and severe gastroenteritis. During outbreaks of suspected viral gastroenteritis in 11 production pig farms in Hungary in 2011, several samples were collected and screened by routine diagnostic approaches for common viral agents of gastroenteritis, including astroviruses. Since the conventional diagnostic assays did not yield conclusive etiological results, samples were subjected to viral metagenomics to discern putative new viral agents. Viral metagenomics aims at characterizing the virome, the complete viral genomic material of a sample. By enrichment of the virome and high-throughput sequencing the genetic material of the viruses is characterized.
 
-Twenty-one (21) intestinal samples were collected during 2011 in Hungary at nine large industrial pig production farms, which were reporting cases on diarrhoea amongst the 1-2 week piglets (Table 1). Samples were collected from both piglets and weaned pigs. The specimens were initially screen at Agricultural Office Veterinary Diagnostic Directorate, Budapest. If the samples were deemed to originate from disease forms of unknown aetiology, they were sent to the OIE Collaborating Centre for the Biotechnology-based Diagnosis of Infectious Diseases in Veterinary Medicine, SLU, Uppsala, Sweden for further studying the possible aetiology by the application of metagenomics analysis.
+Twenty-one (21) intestinal samples were collected during 2011 in Hungary at nine large industrial pig production farms, which were reporting cases on diarrhoea amongst the 1-2 week piglets. Samples were collected from both piglets and weaned pigs. The specimens were initially screen at Agricultural Office Veterinary Diagnostic Directorate, Budapest. If the samples were deemed to originate from disease forms of unknown aetiology, they were sent to the OIE Collaborating Centre for the Biotechnology-based Diagnosis of Infectious Diseases in Veterinary Medicine, SLU, Uppsala, Sweden for further studying the possible aetiology by the application of metagenomics analysis.
 
 
 
@@ -138,28 +138,61 @@ Which kind of interesting virus do you find?
 
 ## De novo assembly
 
-In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset.
+In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset. As SPAdes is resource intensive and we are limited on time the resulting assembly is pre-processed. 
 
-# TODO: check the SPAdes command for metagenomic (and the time)
 ```
-spades.py -k 21,33,77 --careful --only-assembler -1 read_1.fastq -2 read_2.fastq -o output
+spades.py -o SPAdes --meta --only-assembler -k 21,33,55,77,99,127 --pe1-1 Forward_Fasta.fastq --pe1-2 Reverse_Fasta.fastq
 ```
 
-This will produce a series of outputs. The scaffolds will be in fasta format.
+This will produce a series of outputs. The scaffolds will be in fasta format. You can find the results from the SPAdes assembly here
+# Add link to data on server
+SPAdes output is organised as follows:
+   * contigs.fasta – resulting contigs
+   * scaffolds.fasta – resulting scaffolds 
+   * assembly_graph.fastg – assembly graph
+   * contigs.paths – contigs paths in the assembly graph
+   * scaffolds.paths – scaffolds paths in the assembly graph
+   * before_rr.fasta – contigs before repeat resolution
+
+   * corrected/ – files from read error correction
+   * configs/ – configuration files for read error correction
+   * corrected.yaml – internal configuration file
+   * Output files with corrected reads
+
+   * params.txt – information about SPAdes parameters in this run
+   * spades.log – SPAdes log
+   * dataset.info – internal configuration file
+   * input_dataset.yaml – internal YAML data set file
+   * K<##>/ – directory containing files from the run with K=<##> 
+You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly. 
 
 ## Alignment of the contigs to a reference genome
 
 ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.
 
 ```
-abacas.pl -r <reference file: single fasta> -q <query sequence file: fasta> -p <nucmer> -d -m
+abacas -r ref_file.fasta -q query_file.fasta -p nucmer -d -m
 ```
 
-You will find [here](http://www.ebi.ac.uk/ena/data/view/JF713713) the reference genome to use
+You will find [the](http://www.ebi.ac.uk/ena/data/view/JQ340310) reference genome to use. Inspect the resulting pseudo-molecule query_referens.fasta.
 
 ## Mapping the reads on the viral contigs
 
-We will use Bowtie2 for mapping the reads back to the obtained viral contigs,
+After producing a putative pseudo-molecule with abacas orientation of contigs we proceed to re-mapp the trimmed data (from the sickle trimming) using Bowtie2. This enables us to get a rough estimate on how well our sequencing data covers the putative new genome as well as provide other useful statistics. We will use Bowtie2 for mapping the reads back to the obtained viral contigs. Bowtie2 requires a reference genome tu build an index from, we will use the newly created pseudo molecule for that. Additionally, Bowtie2 requires fastq data, of which we have two files that are trimmed.
+
+```
+# First build an index to map towards
+# Usage: bowtie2-build [options]* <reference_in> <bt2_index_base>
+bowtie2-build -a -q astro_psudo.fasta astro_psudo_index
+
+# Then map the trimmed reads towards the index
+# Usage: bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
+bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fastq -2 data/trimmed_965_S11_L001_R2_001.fastq  -S astro_psudo_map.sam
+```
+Inspect the resulting statistics. How many reads were mapped towards the psudo-molecule?
+
+Download the .sam file and open it in UGENE. Inspect the coverage statistics.
+
 
 ## Genes prediction and functional annotation
 
