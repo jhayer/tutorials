@@ -107,7 +107,7 @@ Running sickle with either the "se" or "pe" commands will give help specific to 
 
 `sickle pe`
 
-Set the quality score to 25. This means the trimmer will work its way from both ends of each read, cutting away any bases with a quality score < 25.
+Set the quality score to 30. This means the trimmer will work its way from both ends of each read, cutting away any bases with a quality score < 30.
 
 ```
 sickle pe -f input_file1.fastq -r input_file2.fastq -t sanger \
@@ -138,17 +138,17 @@ Which kind of interesting virus do you find?
 
 ## De novo assembly
 
-In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset. As SPAdes is resource intensive and we are limited on time the resulting assembly is pre-processed. 
+In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset. As SPAdes is resource intensive and we are limited on time the resulting assembly is pre-processed.
 
 ```
 spades.py -o SPAdes --meta --only-assembler -k 21,33,55,77,99,127 --pe1-1 Forward_Fasta.fastq --pe1-2 Reverse_Fasta.fastq
 ```
 
 This will produce a series of outputs. The scaffolds will be in fasta format. You can find the results from the SPAdes assembly here
-# Add link to data on server
+
 SPAdes output is organised as follows:
    * contigs.fasta – resulting contigs
-   * scaffolds.fasta – resulting scaffolds 
+   * scaffolds.fasta – resulting scaffolds
    * assembly_graph.fastg – assembly graph
    * contigs.paths – contigs paths in the assembly graph
    * scaffolds.paths – scaffolds paths in the assembly graph
@@ -163,8 +163,8 @@ SPAdes output is organised as follows:
    * spades.log – SPAdes log
    * dataset.info – internal configuration file
    * input_dataset.yaml – internal YAML data set file
-   * K<##>/ – directory containing files from the run with K=<##> 
-You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly. 
+   * K<##>/ – directory containing files from the run with K=<##>
+You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly.
 
 ## Alignment of the contigs to a reference genome
 
@@ -183,7 +183,7 @@ After producing a putative pseudo-molecule with abacas orientation of contigs we
 ```
 # First build an index to map towards
 # Usage: bowtie2-build [options]* <reference_in> <bt2_index_base>
-bowtie2-build -a -q astro_psudo.fasta astro_psudo_index
+bowtie2-build -q astro_psudo.fasta astro_psudo_index
 
 # Then map the trimmed reads towards the index
 # Usage: bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
