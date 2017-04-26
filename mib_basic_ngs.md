@@ -166,6 +166,8 @@ SPAdes output is organised as follows:
    * K<##>/ – directory containing files from the run with K=<##>
 You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly.
 
+You will find the `SPAdes_Astro` output directory within you data directory
+
 ## Alignment of the contigs to a reference genome
 
 ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.
