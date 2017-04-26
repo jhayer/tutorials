@@ -173,7 +173,7 @@ You will find the `SPAdes_Astro` output directory within you data directory
 ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.
 
 ```
-abacas -r ref_file.fasta -q query_file.fasta -p nucmer -d -m
+abacas -r astro_ref.fasta -q SPAdes_Astro/contigs.fasta -p nucmer -d -m
 ```
 
 You will find [the](http://www.ebi.ac.uk/ena/data/view/JQ340310) reference genome to use. Inspect the resulting pseudo-molecule query_referens.fasta.
