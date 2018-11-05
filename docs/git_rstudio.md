@@ -1,4 +1,6 @@
-# Version control in Rstudio with Git and GitHub
+# Git in RStudio
+
+## Version control in Rstudio with Git and GitHub
 
 This tutorial uses some parts of [Happy Git and GitHub for the useR](http://happygitwithr.com) by Jennifer Bryan
 
@@ -9,9 +11,8 @@ Install Git for Windows, also known as “Git Bash”, to get Git in addition to
 
 We like this because Git for Windows leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the “Git Bash” shell will be useful as you venture outside of R/RStudio.
 
-NOTE: Select “Use Git from the Windows Command Prompt” during installation. Otherwise, we believe it’s OK to accept the defaults.
+**Note**: Select “Use Git from the Windows Command Prompt” during installation. Otherwise, we believe it’s OK to accept the defaults.
 Note that RStudio for Windows prefers for Git to be installed below C:/Program Files, for example the Git executable on my Windows system is found at C:/Program Files/Git/bin/git.exe. Unless you have specific reasons to otherwise, follow this convention.
-This also leaves you with a Git client, though not a very good one. So check out Git clients we recommend (chapter 9).
 
 ## Step 2: create a GitHub account
 

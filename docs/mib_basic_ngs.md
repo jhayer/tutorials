@@ -1,4 +1,6 @@
-# Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection
+# Virus detection
+
+##Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection
 
 ### Table of content
 * [Introduction](#introduction)
