@@ -14,6 +14,8 @@ We like this because Git for Windows leaves the Git executable in a conventional
 **Note**: Select “Use Git from the Windows Command Prompt” during installation. Otherwise, we believe it’s OK to accept the defaults.
 Note that RStudio for Windows prefers for Git to be installed below C:/Program Files, for example the Git executable on my Windows system is found at C:/Program Files/Git/bin/git.exe. Unless you have specific reasons to otherwise, follow this convention.
 
+### For MacOS users
+
 ## Step 2: create a GitHub account
 
 
