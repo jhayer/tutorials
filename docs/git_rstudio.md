@@ -142,7 +142,7 @@ Then place it in the `data/` subfolder of your R project
 
 ### Creating the script
 
-*From here, the tutorial is based on a [R tutorial for data visualisation](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) from Data Carpentry.*
+*From here, the tutorial is partly based on a [R tutorial for data visualisation](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) from Data Carpentry.*
 
 You will now create a new Rscript `plot_surveys.R` in the `scripts/` subfolder.
 Then add the first commands to the script:
@@ -159,6 +159,10 @@ surveys_complete <- read_csv("data/surveys_complete.csv")
 # Assign plot to a variable
 surveys_plot <- ggplot(data = surveys_complete,
                        mapping = aes(x = weight, y = hindfoot_length))
+
+# Draw the plot
+surveys_plot +
+    geom_point()
 ```
 
 Test the script. Does it seem to work?
@@ -171,11 +175,100 @@ You can find the Git tab in the up right panel of RStudio.
 
 When you click on commit, you get a new window that will allow you to select the files and folders that you want to add to the staging area (you might want to commit everything except the folders `results/` and `data/`)
 
+**Note**: *Do not forget to add the files or folders that you do not want to track to the .gitignore file. You can edit this file and also, do not forget to add it and commit it!*
+
 You are now ready for your initial commit!! Do not forget to write a commit message.
 
 ### Push to the remote repository
 Now you can push to GitHub, and then check online!
 
-## Step 7: Practice!
+## Step 7: Practice and collaboration
 
-You will now add some code to your script, and then commit the changes and push to the remote repository
+You will now add some code to your script, and then commit the changes and push to the remote repository.
+
+Let's add some color and transparency to our plot. Add this to your script:
+
+```r
+surveys_plot +
+    geom_point(alpha = 0.1, color = "blue")
+```
+
+Now, add and commit this change. Push!
+
+Note: *You can review the changes by clicking on Diff. You can go back to a previous version with Revert.*
+
+### Collaboration
+
+You will now choose another student to pair with.
+One will be the owner, and one the collaborator.
+
+**Owner**: you will go to you GitHub account in the *Settings*, you will choose the tab *Collaborators* and there add the username of you collaborator.
+
+**Collaborator**: You will create a new project by cloning the owner's repository. Please pay attention and clone it in a new subfolder, so you do not erase your previous repo. You can add the name of your pair owner to the subfolder for example.
+
+**Collaborator**: you will now modify the script:
+
+We now want to use the colors in another way for our plot! We would like to color each species in the plot differently. We could use a vector as an input to the argument color. ggplot2 will provide a different color corresponding to different values in the vector. Add the following lines to the R script:
+
+```r
+surveys_plot +
+    geom_point(alpha = 0.1, aes(color = species_id))
+```
+
+When you are happy with it, add, commit with an appropriate message and push!
+
+**Both**: Take a look to the Owner’s repository on its GitHub website now (maybe you need to refresh your browser.) You should be able to see the new commit made by the Collaborator.
+
+**Owner**: Because you know that a collaborator has been working on your repository, you will Pull, to download locally the latest version that is hosted on the remote repository (**i.e.** on GitHub)
+
+> Basic collaborative workflow:
+In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should `git pull` before making our changes.
+
+The basic collaborative workflow would be:
+
+- update your local repo - `git pull origin master`
+
+- make your changes and stage them -  `git add`
+
+- commit your changes - `git commit -m`
+
+- upload the changes to GitHub - `git push origin master`
+
+
+>It is better to make many commits with smaller changes rather than of one commit with massive changes: small commits are easier to read and review.
+
+### Switch roles
+
+You will now switch roles and repeat the exercise.
+
+In the script, we now want to use boxplots to visualize the distribution of weight within each species. Add this:
+
+```r
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot()
+```
+Add, commit and push!
+
+## Step 8: Conflicts and Merge
+
+**Owner**: Imagine that you forget to pull the latest version and you start adding code to your script:
+
+```r
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato")
+```
+**Note**: *By adding points to boxplot, we can have a better idea of the number of measurements and of their distribution:*
+
+Add, commit and push!
+
+Oops! There seems to be a conflict.
+You will need to edit and solve the conflict, **i.e.** choose which version you - owner - want to keep, before being able to merge.
+
+## Step 9: Branches, Forks and Pull requests
+
+If you are interested in learning more about how to collaborate on GitHub, I suggest that you have a look at parts IV and V (chapters 21 to 27) of [http://happygitwithr.com](http://happygitwithr.com).
+
+You might also check some [GitHub documentation](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/)
+
+**Note**: *It might be that some commands or operations are not available in RStudio, in that case you can use your shell terminal.*
