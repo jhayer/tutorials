@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Virus detection - Bioinformatics Tutorials</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Bioinformatics Tutorials</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Welcome to Juliette's tutorials</a>
+                            </li>
+                            <li >
+                                <a href="../git_rstudio/">Git in RStudio</a>
+                            </li>
+                            <li class="active">
+                                <a href="./">Virus detection</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../git_rstudio/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#virus-detection">Virus detection</a></li>
+            <li><a href="#introduction-to-basic-high-throughput-sequencing-data-analysis-a-case-of-virus-detection">Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection</a></li>
+            <li><a href="#quality-control">Quality control</a></li>
+            <li><a href="#taxonomic-classification-with-kaiju">Taxonomic classification with Kaiju</a></li>
+            <li><a href="#de-novo-assembly">De novo assembly</a></li>
+            <li><a href="#alignment-of-the-contigs-to-a-reference-genome">Alignment of the contigs to a reference genome</a></li>
+            <li><a href="#mapping-the-reads-on-the-viral-contigs">Mapping the reads on the viral contigs</a></li>
+            <li><a href="#genes-prediction-and-functional-annotation">Genes prediction and functional annotation</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="virus-detection">Virus detection</h1>
+<h2 id="introduction-to-basic-high-throughput-sequencing-data-analysis-a-case-of-virus-detection">Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection</h2>
+<h3 id="table-of-content">Table of content</h3>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#softwares-required-for-this-tutorial">Softwares Required for this Tutorial</a></li>
+<li><a href="#login-to-the-training-server-and-find-the-dataset">Login to the training server and find the dataset</a></li>
+<li><a href="#quality-control">Quality control</a></li>
+<li><a href="#taxonomic-classification-with-Kaiju">Taxonomic classification with Kaiju</a></li>
+<li><a href="#de-novo-assembly">De novo assembly</a></li>
+<li><a href="#alignment-of-the-contigs-to-a-reference-genome">Alignment of the contigs to a reference genome</a></li>
+<li><a href="#mapping-the-reads-on-the-viral-contigs">Mapping the reads on the viral contigs</a></li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p><a href="http://viralzone.expasy.org/all_by_species/27.html">Astroviruses</a> within porcine hosts show a remarkable diversity and are known to cause both mild and severe gastroenteritis. During outbreaks of suspected viral gastroenteritis in 11 production pig farms in Hungary in 2011, several samples were collected and screened by routine diagnostic approaches for common viral agents of gastroenteritis, including astroviruses. Since the conventional diagnostic assays did not yield conclusive etiological results, samples were subjected to viral metagenomics to discern putative new viral agents. Viral metagenomics aims at characterizing the virome, the complete viral genomic material of a sample. By enrichment of the virome and high-throughput sequencing the genetic material of the viruses is characterized.</p>
+<p>Twenty-one (21) intestinal samples were collected during 2011 in Hungary at nine large industrial pig production farms, which were reporting cases on diarrhoea amongst the 1-2 week piglets. Samples were collected from both piglets and weaned pigs. The specimens were initially screen at Agricultural Office Veterinary Diagnostic Directorate, Budapest. If the samples were deemed to originate from disease forms of unknown aetiology, they were sent to the OIE Collaborating Centre for the Biotechnology-based Diagnosis of Infectious Diseases in Veterinary Medicine, SLU, Uppsala, Sweden for further studying the possible aetiology by the application of metagenomics analysis.</p>
+<p>On this metagenomic dataset, we will perform:
+- quality control
+- taxonomic classification of the reads
+- de novo assembly of the trimmed reads
+- alignment of the obtained contigs to the reference genome of the detected virus of interest
+- mapping of all the dataset's reads back to the viral contigs to close the gaps
+- functional annotation of the obtained viral genome (at least a few genes)</p>
+<h3 id="softwares-required-for-this-tutorial">Softwares required for this tutorial</h3>
+<p>The ones that we will use on line:</p>
+<ul>
+<li><a href="http://kaiju.binf.ku.dk">Kaiju</a></li>
+</ul>
+<p>The ones that we will use on our server:
+<em> <a href="https://github.com/najoshi/sickle">Sickle</a>
+</em> <a href="http://bioinf.spbau.ru/spades">SPAdes</a>
+<em> <a href="http://abacas.sourceforge.net">Abacas</a>
+</em> <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a></p>
+<p>The ones that you install on your machine:
+<em> <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>
+</em> <a href="http://ugene.net">Ugene</a></p>
+<h3 id="login-to-the-training-server-and-find-the-dataset">Login to the training server and find the dataset</h3>
+<p>We will login to a training server called eBioKit by typing the following command in the terminal (replacing the X by the number that we give to you):</p>
+<pre><code>ssh studentX@77.235.253.122
+</code></pre>
+
+<p>This server will be use for running some tools during all this tutorial.
+The Illumina reads files (R1 and R2) are in your home directory:</p>
+<pre><code>965_S11_L001_R1_001.fastq.gz
+965_S11_L001_R2_001.fastq.gz
+</code></pre>
+
+<h2 id="quality-control">Quality control</h2>
+<h3 id="fastqc">FastQC</h3>
+<p>To check the quality of the sequence data we will use a tool called FastQC. With this you can check things like read length distribution, quality distribution across the read length, sequencing artifacts and much more.</p>
+<p>FastQC has a graphical interface and can be downloaded and run on a Windows or Linux computer without installation. It is available <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">here</a>.</p>
+<p>So you can copy the data on your laptop by typing this command line from the terminal of your laptop (in your working directory):</p>
+<p><code>scp studentX@77.235.253.122:/Users/studentX/965_*.fastq.gz .</code></p>
+<p>Then run fastqc from the terminal by typing:</p>
+<p><code>fastqc &amp;</code>
+and you will get the Graphical User Interface (GUI) in which you can open your data files.</p>
+<p>However, FastQC is also available as a command line utility on the training server you are using. You can execute the program as follows:</p>
+<p><code>fastqc $read1 $read2</code></p>
+<p>which will produce both a .zip archive containing all the plots, and a html document for you to look at the result in your browser.</p>
+<p>Open the html file with your favourite web browser, and try to interpret them.</p>
+<p>Pay special attention to the per base sequence quality and sequence length distribution. Explanations for the various quality modules can be found <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/">here</a>. Also, have a look at examples of a <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html">good</a> and a <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html">bad</a> illumina read set for comparison.</p>
+<h3 id="sickle">Sickle</h3>
+<p>Most modern sequencing technologies produce reads that have deteriorating quality towards the 3'-end and some towards the 5'-end as well. Incorrectly called bases in both regions negatively impact assembles, mapping, and downstream bioinformatics analyses.</p>
+<p>We will trim each read individually down to the good quality part to keep the bad part from interfering with downstream applications.</p>
+<p>To do so, we will use sickle. Sickle is a tool that uses sliding windows along with quality and length thresholds to determine when quality is sufficiently low to trim the 3'-end of reads and also determines when the quality is sufficiently high enough to trim the 5'-end of reads. It will also discard reads based upon a length threshold.</p>
+<p>Sickle has two modes to work with both paired-end and single-end reads: sickle se and sickle pe.</p>
+<p>Running sickle by itself will print the help:</p>
+<p><code>sickle</code></p>
+<p>Running sickle with either the "se" or "pe" commands will give help specific to those commands. Since we have paired end reads:</p>
+<p><code>sickle pe</code></p>
+<p>Set the quality score to 30. This means the trimmer will work its way from both ends of each read, cutting away any bases with a quality score &lt; 30.</p>
+<pre><code>sickle pe -f input_file1.fastq -r input_file2.fastq -t sanger \
+-o trimmed_output_file1.fastq -p trimmed_output_file2.fastq \
+-s trimmed_singles_file.fastq -q 30
+</code></pre>
+
+<p>What did the trimming do to the per-base sequence quality, the per sequence quality scores and the sequence length distribution? Run FastQC again to find out.</p>
+<p>You copy the trimmed files produced by Sickle on your laptop and gzip them for FastQC and for the next step.</p>
+<p>On your laptop, in your working directory:</p>
+<pre><code>scp studentX@77.235.253.122:/Users/studentX/trimmed*.fastq .
+gzip trimmed_file1.fastq
+gzip trimmed_file2.fastq
+</code></pre>
+
+<h2 id="taxonomic-classification-with-kaiju">Taxonomic classification with Kaiju</h2>
+<p>We will run a taxonomic classification of our good quality reads at the <a href="http://kaiju.binf.ku.dk">Kaiju server</a></p>
+<p>Go to the WebServer tab, fill in the needed information, upload your reads files and select the database to use: NCBI nr Bacteria, Archaea, Viruses</p>
+<p>Once the analysis is done, visualize the results with Krona on the Kaiju server.</p>
+<p>Which kind of interesting virus do you find?</p>
+<h2 id="de-novo-assembly">De novo assembly</h2>
+<p>In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset. As SPAdes is resource intensive and we are limited on time the resulting assembly is pre-processed.</p>
+<pre><code>spades.py -o SPAdes --meta --only-assembler -k 21,33,55,77,99,127 --pe1-1 Forward_Fasta.fastq --pe1-2 Reverse_Fasta.fastq
+</code></pre>
+
+<p>This will produce a series of outputs. The scaffolds will be in fasta format. You can find the results from the SPAdes assembly here</p>
+<p>SPAdes output is organised as follows:
+   * contigs.fasta – resulting contigs
+   * scaffolds.fasta – resulting scaffolds
+   * assembly_graph.fastg – assembly graph
+   * contigs.paths – contigs paths in the assembly graph
+   * scaffolds.paths – scaffolds paths in the assembly graph
+   * before_rr.fasta – contigs before repeat resolution</p>
+<ul>
+<li>corrected/ – files from read error correction</li>
+<li>configs/ – configuration files for read error correction</li>
+<li>corrected.yaml – internal configuration file</li>
+<li>
+<p>Output files with corrected reads</p>
+</li>
+<li>
+<p>params.txt – information about SPAdes parameters in this run</p>
+</li>
+<li>spades.log – SPAdes log</li>
+<li>dataset.info – internal configuration file</li>
+<li>input_dataset.yaml – internal YAML data set file</li>
+<li>K&lt;##&gt;/ – directory containing files from the run with K=&lt;##&gt;
+You should look at the contigs.fasta file avilable in the top directory of the assembly, this represents the best contigs from the assembly.</li>
+</ul>
+<p>You will find the <code>SPAdes_Astro</code> output directory within you data directory</p>
+<h2 id="alignment-of-the-contigs-to-a-reference-genome">Alignment of the contigs to a reference genome</h2>
+<p>ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.</p>
+<pre><code>abacas -r astro_ref.fasta -q SPAdes_Astro/contigs.fasta -p nucmer -d -m
+</code></pre>
+
+<p>You will find <a href="http://www.ebi.ac.uk/ena/data/view/JQ340310">the</a> reference genome to use. Inspect the resulting pseudo-molecule query_referens.fasta.</p>
+<h2 id="mapping-the-reads-on-the-viral-contigs">Mapping the reads on the viral contigs</h2>
+<p>After producing a putative pseudo-molecule with abacas orientation of contigs we proceed to re-mapp the trimmed data (from the sickle trimming) using Bowtie2. This enables us to get a rough estimate on how well our sequencing data covers the putative new genome as well as provide other useful statistics. We will use Bowtie2 for mapping the reads back to the obtained viral contigs. Bowtie2 requires a reference genome tu build an index from, we will use the newly created pseudo molecule for that. Additionally, Bowtie2 requires fastq data, of which we have two files that are trimmed.</p>
+<pre><code># First build an index to map towards
+# Usage: bowtie2-build [options]* &lt;reference_in&gt; &lt;bt2_index_base&gt;
+bowtie2-build -q astro_psudo.fasta astro_psudo_index
+
+# Then map the trimmed reads towards the index
+# Usage: bowtie2 [options]* -x &lt;bt2-idx&gt; {-1 &lt;m1&gt; -2 &lt;m2&gt; | -U &lt;r&gt;} [-S &lt;sam&gt;]
+bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fastq -2 data/trimmed_965_S11_L001_R2_001.fastq  -S astro_psudo_map.sam
+</code></pre>
+
+<p>Inspect the resulting statistics. How many reads were mapped towards the psudo-molecule?</p>
+<p>Download the .sam file and open it in UGENE. Inspect the coverage statistics.</p>
+<h2 id="genes-prediction-and-functional-annotation">Genes prediction and functional annotation</h2>
+<p>We will use <a href="http://exon.gatech.edu/GeneMark/">GeneMark</a> for predicting the genes from our assembled genome.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Git in RStudio - Bioinformatics Tutorials</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Bioinformatics Tutorials</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Welcome to Juliette's tutorials</a>
+                            </li>
+                            <li class="active">
+                                <a href="./">Git in RStudio</a>
+                            </li>
+                            <li >
+                                <a href="../mib_basic_ngs/">Virus detection</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../mib_basic_ngs/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#git-in-rstudio">Git in RStudio</a></li>
+            <li><a href="#version-control-in-rstudio-with-git-and-github">Version control in Rstudio with Git and GitHub</a></li>
+            <li><a href="#step-1-create-a-github-account">Step 1: Create a GitHub account</a></li>
+            <li><a href="#step-2-install-git-on-your-computer">Step 2: Install Git on your computer</a></li>
+            <li><a href="#step-3-git-configuration">Step 3: git configuration</a></li>
+            <li><a href="#step-4-make-a-new-repository-on-github">Step 4: make a new repository on GitHub</a></li>
+            <li><a href="#step-5-clone-the-new-github-repository-to-your-computer-via-rstudio">Step 5: Clone the new GitHub repository to your computer via RStudio</a></li>
+            <li><a href="#step-6-we-are-ready-to-start-creating-scripts-and-track-them-with-version-control">Step 6: We are ready to start creating scripts and track them with version control!</a></li>
+            <li><a href="#step-7-practice-and-collaboration">Step 7: Practice and collaboration</a></li>
+            <li><a href="#step-8-conflicts-and-merge">Step 8: Conflicts and Merge</a></li>
+            <li><a href="#step-9-branches-forks-and-pull-requests">Step 9: Branches, Forks and Pull requests</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="git-in-rstudio">Git in RStudio</h1>
+<h2 id="version-control-in-rstudio-with-git-and-github">Version control in Rstudio with Git and GitHub</h2>
+<p><em>This tutorial uses some parts of <a href="http://happygitwithr.com">Happy Git and GitHub for the useR</a> by Jennifer Bryan.</em></p>
+<h2 id="step-1-create-a-github-account">Step 1: Create a GitHub account</h2>
+<p>Before you register, I would like to give you some tips.</p>
+<p>For most of the settings, joining organizations, etc. you will be able to deal with it in the future, so you do not need to think about all this now. <strong>Except your username. You might want to give that some thought.</strong></p>
+<p>Some advices about the username:</p>
+<ul>
+<li>
+<p>Incorporate your actual name! People like to know who they’re dealing with. Also makes your username easier for people to guess or remember.</p>
+</li>
+<li>
+<p>Pick a username you will be comfortable revealing to your future boss.</p>
+</li>
+<li>
+<p>Shorter is better than longer.</p>
+</li>
+<li>
+<p>Make it timeless. Don’t highlight your current university, employer, or place of residence.</p>
+</li>
+<li>
+<p>Reuse your username from other contexts, e.g., Twitter or Slack. But, of course, someone with no GitHub activity will probably be squatting on that.</p>
+</li>
+</ul>
+<p>That being said, you can now register an account with GitHub. It’s free!</p>
+<p><a href="https://github.com">https://github.com</a></p>
+<p><strong>Note</strong>: <em>you do not need to use you SLU email address to register, you might want to use a personal one that you will keep using even if you move to another workplace.</em></p>
+<h2 id="step-2-install-git-on-your-computer">Step 2: Install Git on your computer</h2>
+<h3 id="for-windows-users">For Windows users</h3>
+<p>Install Git for Windows, also known as “Git Bash”, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing, but you might encounter them elsewhere and I want you to be well-informed.</p>
+<p>We like this because Git for Windows leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the “Git Bash” shell will be useful as you venture outside of R/RStudio.</p>
+<p><strong>Note</strong>: Select “Use Git from the Windows Command Prompt” during installation. Otherwise, we believe it’s OK to accept the defaults.
+<strong>Note</strong>: RStudio for Windows prefers for Git to be installed below C:/Program Files, for example the Git executable on my Windows system is found at C:/Program Files/Git/bin/git.exe. Unless you have specific reasons to otherwise, follow this convention.</p>
+<h3 id="for-macos-and-linux-users">For MacOS and Linux users</h3>
+<h4 id="check-if-git-is-already-installed">Check if git is already installed</h4>
+<p>Maybe <code>git</code> is already installed?
+Go to the shell terminal and Enter which git to request the path to your Git executable:</p>
+<pre><code>which git
+## /usr/bin/git
+</code></pre>
+
+<p>and <code>git --version</code> to see its version:</p>
+<pre><code>git --version
+## git version 2.15.1
+</code></pre>
+
+<p>If you are successful, that’s great! You have Git already. No need to install! Move on to step 3.</p>
+<p>If, instead, you see something more like <code>git: command not found</code>, keep reading.</p>
+<p>Mac OS users might get an immediate offer to install command line developer tools. Yes, you should accept! Click “Install” and read more below.</p>
+<h4 id="install-git-on-macos">Install Git on MacOS</h4>
+<p>Please follow <a href="http://happygitwithr.com/install-git.html#mac-os">this link</a>, read paragraph 7.3 and choose one of the 3 first options.
+Once git is installed, you can move to Step 3.</p>
+<h4 id="install-git-on-linux">Install Git on Linux</h4>
+<p>Install Git via your distro’s package manager.
+Ubuntu or Debian Linux:</p>
+<pre><code>sudo apt-get install git
+</code></pre>
+
+<p>Fedora or RedHat Linux:</p>
+<pre><code>sudo yum install git
+</code></pre>
+
+<p>A comprehensive list for various Linux and Unix package managers: <a href="https://git-scm.com/download/linux">https://git-scm.com/download/linux</a></p>
+<h2 id="step-3-git-configuration">Step 3: git configuration</h2>
+<p>In the shell (terminal or Git for Windows terminal), type:</p>
+<pre><code>git config --global user.name 'Firstname Lastname'
+git config --global user.email 'my_email@slu.se'
+</code></pre>
+
+<p>substituting your name and <strong>the email associated with your GitHub account.</strong></p>
+<p>These 2 commands return nothing. You can check that Git understood what you typed by looking at the output of <code>git config --global --list</code>.</p>
+<p><strong>Note</strong>: <em>What user name should you give to Git? This does not have to be your GitHub username, although it can be. Another good option is your actual first name and last name. Your commits will be labelled with this name, so this should be informative to potential collaborators.</em></p>
+<p><em>What email should you give to Git? This must be the email associated with your GitHub account.</em></p>
+<h2 id="step-4-make-a-new-repository-on-github">Step 4: make a new repository on GitHub</h2>
+<p>Go to <a href="https://github.com">https://github.com</a> and make sure you are logged in.</p>
+<p>Click green “New repository” button. Or, if you are on your own profile page, click on “Repositories”, then click the green “New” button.</p>
+<p>Repository name: rstudio_git_test (or whatever you wish, we will delete this)
+Public
+YES Initialize this repository with a README</p>
+<p>Click big green button “Create repository.”</p>
+<p>Copy the HTTPS clone URL to your clipboard via the green “Clone or Download” button. Or copy the SSH URL if you chose to set up SSH keys.</p>
+<h2 id="step-5-clone-the-new-github-repository-to-your-computer-via-rstudio">Step 5: Clone the new GitHub repository to your computer via RStudio</h2>
+<p>In RStudio, start a new Project:</p>
+<p><em>File &gt; New Project &gt; Version Control &gt; Git</em>. In the “repository URL” paste the URL of your new GitHub repository. It will be something like this <code>https://github.com/jhayer/rstudio_git_test.git</code></p>
+<blockquote>
+<p>Take charge of – or at least notice! – the local directory for the Project (under "Create project as subdirectory of" when you clone the Git repository). A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in <code>~/Documents/courses/reproducible_research/day4/</code></p>
+</blockquote>
+<p>I suggest you check “Open in new session”, as that’s what you’ll usually do in real life.
+Click “Create Project”.
+This should download the README.md file that we created on GitHub in the previous step. Look in RStudio’s file browser pane for the README.md file.</p>
+<p><strong>Note</strong>: <em>If you do you NOT see an option to get the Project from Version Control? Have a look <a href="http://happygitwithr.com/rstudio-see-git.html">here</a>.</em></p>
+<h2 id="step-6-we-are-ready-to-start-creating-scripts-and-track-them-with-version-control">Step 6: We are ready to start creating scripts and track them with version control!</h2>
+<p>In the beginning we will prepare our working environment, and then we will create a Rscript for plotting data that we will modify step by step and use version control follow this modifications.</p>
+<h3 id="preparing-our-working-directory">Preparing our working directory:</h3>
+<p>Let's get organised! Within your project folder, you will create 3 other folders (you can do it directly from RStudio): <em>data, results, scripts</em></p>
+<p>Download the data file <code>surveys_complete.csv</code> from here:
+<a href="">https://osf.io/9zkwm/download</a>.
+Then place it in the <code>data/</code> subfolder of your R project</p>
+<h3 id="creating-the-script">Creating the script</h3>
+<p><em>From here, the tutorial is partly based on a <a href="https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html">R tutorial for data visualisation</a> from Data Carpentry.</em></p>
+<p>You will now create a new Rscript <code>plot_surveys.R</code> in the <code>scripts/</code> subfolder.
+Then add the first commands to the script:</p>
+<pre><code class="r"># Install the tidyverse if not already installed
+if (!requireNamespace(&quot;tidyverse&quot;))
+  install.packages(&quot;tidyverse&quot;)
+# loading library
+library(&quot;tidyverse&quot;)
+# loading datafile
+surveys_complete &lt;- read_csv(&quot;data/surveys_complete.csv&quot;)
+
+# Assign plot to a variable
+surveys_plot &lt;- ggplot(data = surveys_complete,
+                       mapping = aes(x = weight, y = hindfoot_length))
+
+# Draw the plot
+surveys_plot +
+    geom_point()
+</code></pre>
+
+<p>Test the script. Does it seem to work?</p>
+<h3 id="add-files-and-commit">Add files and commit</h3>
+<p>We will now use Git to add our new files to the staging area and commit!
+You can find the Git tab in the up right panel of RStudio.</p>
+<p>When you click on commit, you get a new window that will allow you to select the files and folders that you want to add to the staging area (you might want to commit everything except the folders <code>results/</code> and <code>data/</code>)</p>
+<p><strong>Note</strong>: <em>Do not forget to add the files or folders that you do not want to track to the .gitignore file. You can edit this file and also, do not forget to add it and commit it!</em></p>
+<p>You are now ready for your initial commit!! Do not forget to write a commit message.</p>
+<h3 id="push-to-the-remote-repository">Push to the remote repository</h3>
+<p>Now you can push to GitHub, and then check online!</p>
+<h2 id="step-7-practice-and-collaboration">Step 7: Practice and collaboration</h2>
+<p>You will now add some code to your script, and then commit the changes and push to the remote repository.</p>
+<p>Let's add some color and transparency to our plot. Add this to your script:</p>
+<pre><code class="r">surveys_plot +
+    geom_point(alpha = 0.1, color = &quot;blue&quot;)
+</code></pre>
+
+<p>Now, add and commit this change. Push!</p>
+<p>Note: <em>You can review the changes by clicking on Diff. You can go back to a previous version with Revert.</em></p>
+<h3 id="collaboration">Collaboration</h3>
+<p>You will now choose another student to pair with.
+One will be the owner, and one the collaborator.</p>
+<p><strong>Owner</strong>: you will go to you GitHub account in the <em>Settings</em>, you will choose the tab <em>Collaborators</em> and there add the username of you collaborator.</p>
+<p><strong>Collaborator</strong>: You will create a new project by cloning the owner's repository. Please pay attention and clone it in a new subfolder, so you do not erase your previous repo. You can add the name of your pair owner to the subfolder for example.</p>
+<p><strong>Collaborator</strong>: you will now modify the script:</p>
+<p>We now want to use the colors in another way for our plot! We would like to color each species in the plot differently. We could use a vector as an input to the argument color. ggplot2 will provide a different color corresponding to different values in the vector. Add the following lines to the R script:</p>
+<pre><code class="r">surveys_plot +
+    geom_point(alpha = 0.1, aes(color = species_id))
+</code></pre>
+
+<p>When you are happy with it, add, commit with an appropriate message and push!</p>
+<p><strong>Both</strong>: Take a look to the Owner’s repository on its GitHub website now (maybe you need to refresh your browser.) You should be able to see the new commit made by the Collaborator.</p>
+<p><strong>Owner</strong>: Because you know that a collaborator has been working on your repository, you will Pull, to download locally the latest version that is hosted on the remote repository (<strong>i.e.</strong> on GitHub)</p>
+<blockquote>
+<p>Basic collaborative workflow:
+In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should <code>git pull</code> before making our changes.</p>
+</blockquote>
+<p>The basic collaborative workflow would be:</p>
+<ul>
+<li>
+<p>update your local repo - <code>git pull origin master</code></p>
+</li>
+<li>
+<p>make your changes and stage them -  <code>git add</code></p>
+</li>
+<li>
+<p>commit your changes - <code>git commit -m</code></p>
+</li>
+<li>
+<p>upload the changes to GitHub - <code>git push origin master</code></p>
+</li>
+</ul>
+<blockquote>
+<p>It is better to make many commits with smaller changes rather than of one commit with massive changes: small commits are easier to read and review.</p>
+</blockquote>
+<h3 id="switch-roles">Switch roles</h3>
+<p>You will now switch roles and repeat the exercise.</p>
+<p>In the script, we now want to use boxplots to visualize the distribution of weight within each species. Add this:</p>
+<pre><code class="r">ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot()
+</code></pre>
+
+<p>Add, commit and push!</p>
+<h2 id="step-8-conflicts-and-merge">Step 8: Conflicts and Merge</h2>
+<p><strong>Owner</strong>: Imagine that you forget to pull the latest version and you start adding code to your script:</p>
+<pre><code class="r">ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = &quot;tomato&quot;)
+</code></pre>
+
+<p><strong>Note</strong>: <em>By adding points to boxplot, we can have a better idea of the number of measurements and of their distribution:</em></p>
+<p>Add, commit and push!</p>
+<p>Oops! There seems to be a conflict.
+You will need to edit and solve the conflict, <strong>i.e.</strong> choose which version you - owner - want to keep, before being able to merge.</p>
+<h2 id="step-9-branches-forks-and-pull-requests">Step 9: Branches, Forks and Pull requests</h2>
+<p>If you are interested in learning more about how to collaborate on GitHub, I suggest that you have a look at parts IV and V (chapters 21 to 27) of <a href="http://happygitwithr.com">http://happygitwithr.com</a>.</p>
+<p>You might also check some <a href="https://help.github.com/categories/collaborating-with-issues-and-pull-requests/">GitHub documentation</a></p>
+<p><strong>Note</strong>: <em>It might be that some commands or operations are not available in RStudio, in that case you can use your shell terminal.</em></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
