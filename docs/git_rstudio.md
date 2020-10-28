@@ -113,7 +113,7 @@ YES Initialize this repository with a README
 
 Click big green button “Create repository.”
 
-Copy the HTTPS clone URL to your clipboard via the green “Clone or Download” button. Or copy the SSH URL if you chose to set up SSH keys.
+Copy the HTTPS clone URL to your clipboard via the green “Code” button. Or copy the SSH URL if you chose to set up SSH keys.
 
 ## Step 5: Clone the new GitHub repository to your computer via RStudio
 
@@ -121,7 +121,7 @@ In RStudio, start a new Project:
 
 *File > New Project > Version Control > Git*. In the “repository URL” paste the URL of your new GitHub repository. It will be something like this `https://github.com/jhayer/rstudio_git_test.git`
 
->Take charge of – or at least notice! – the local directory for the Project (under "Create project as subdirectory of" when you clone the Git repository). A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in `~/Documents/courses/reproducible_research/day4/`
+>Take charge of – or at least notice! – the local directory for the Project (under "Create project as subdirectory of" when you clone the Git repository). A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in `~/Documents/courses/reproducible_research_R/day2_git/`
 
 
 I suggest you check “Open in new session”, as that’s what you’ll usually do in real life.
@@ -182,7 +182,7 @@ When you click on commit, you get a new window that will allow you to select the
 You are now ready for your initial commit!! Do not forget to write a commit message.
 
 ### Push to the remote repository
-Now you can push to GitHub, and then check online!
+Now you can push to GitHub (click on the green up-arrow), and then check your GitHub repository online to see what has happened!
 
 ## Step 7: Practice and collaboration
 
@@ -204,9 +204,9 @@ Note: *You can review the changes by clicking on Diff. You can go back to a prev
 You will now choose another student to pair with.
 One will be the owner, and one the collaborator.
 
-**Owner**: you will go to you GitHub account in the *Settings*, you will choose the tab *Collaborators* and there add the username of you collaborator.
+**Owner**: you will go to you GitHub account in the *Settings*, you will choose the tab *Manage access* and there you can invite a collaborator: add the username of your collaborator.
 
-**Collaborator**: You will create a new project by cloning the owner's repository. Please pay attention and clone it in a new subfolder, so you do not erase your previous repo. You can add the name of your pair owner to the subfolder for example.
+**Collaborator**: You will create a new project by cloning the owner's repository. Please pay attention and clone it in a new subfolder, so you do not erase your previous repository. You can add the name of your pair owner to the subfolder for example.
 
 **Collaborator**: you will now modify the script:
 
@@ -224,7 +224,7 @@ When you are happy with it, add, commit with an appropriate message and push!
 **Owner**: Because you know that a collaborator has been working on your repository, you will Pull, to download locally the latest version that is hosted on the remote repository (**i.e.** on GitHub)
 
 > Basic collaborative workflow:
-In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should `git pull` before making our changes.
+In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should always `git pull` before making any new changes.
 
 The basic collaborative workflow would be:
 
@@ -269,7 +269,7 @@ You will need to edit and solve the conflict, **i.e.** choose which version you 
 
 ## Step 9: Branches, Forks and Pull requests
 
-If you are interested in learning more about how to collaborate on GitHub, I suggest that you have a look at parts IV and V (chapters 21 to 27) of [http://happygitwithr.com](http://happygitwithr.com).
+If you are interested in learning more about how to collaborate on GitHub, I suggest that you have a look at parts IV, V and VI (chapters 20 to 30) of [http://happygitwithr.com](http://happygitwithr.com).
 
 You might also check some [GitHub documentation](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/)
 
