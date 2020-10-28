@@ -9,67 +9,54 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
         <title>Virus detection - Bioinformatics Tutorials</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
         <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="..">Bioinformatics Tutorials</a>
-                </div>
+                <a class="navbar-brand" href="..">Bioinformatics Tutorials</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li >
-                                <a href="..">Welcome to Juliette's tutorials</a>
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Welcome to Juliette's tutorials</a>
                             </li>
-                            <li >
-                                <a href="../git_rstudio/">Git in RStudio</a>
+                            <li class="navitem">
+                                <a href="../git_rstudio/" class="nav-link">Git in RStudio</a>
                             </li>
-                            <li class="active">
-                                <a href="./">Virus detection</a>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Virus detection</a>
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li >
-                                <a rel="next" href="../git_rstudio/">
+                            <li class="nav-item">
+                                <a rel="prev" href="../git_rstudio/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li class="disabled">
-                                <a rel="prev" >
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -79,19 +66,54 @@
         </div>
 
         <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#virus-detection">Virus detection</a></li>
-            <li><a href="#introduction-to-basic-high-throughput-sequencing-data-analysis-a-case-of-virus-detection">Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection</a></li>
-            <li><a href="#quality-control">Quality control</a></li>
-            <li><a href="#taxonomic-classification-with-kaiju">Taxonomic classification with Kaiju</a></li>
-            <li><a href="#de-novo-assembly">De novo assembly</a></li>
-            <li><a href="#alignment-of-the-contigs-to-a-reference-genome">Alignment of the contigs to a reference genome</a></li>
-            <li><a href="#mapping-the-reads-on-the-viral-contigs">Mapping the reads on the viral contigs</a></li>
-            <li><a href="#genes-prediction-and-functional-annotation">Genes prediction and functional annotation</a></li>
-    </ul>
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#virus-detection" class="nav-link">Virus detection</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#introduction-to-basic-high-throughput-sequencing-data-analysis-a-case-of-virus-detection" class="nav-link">Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#quality-control" class="nav-link">Quality control</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#taxonomic-classification-with-kaiju" class="nav-link">Taxonomic classification with Kaiju</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#de-novo-assembly" class="nav-link">De novo assembly</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#alignment-of-the-contigs-to-a-reference-genome" class="nav-link">Alignment of the contigs to a reference genome</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#mapping-the-reads-on-the-viral-contigs" class="nav-link">Mapping the reads on the viral contigs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#genes-prediction-and-functional-annotation" class="nav-link">Genes prediction and functional annotation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
 </div></div>
-                <div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="virus-detection">Virus detection</h1>
 <h2 id="introduction-to-basic-high-throughput-sequencing-data-analysis-a-case-of-virus-detection">Introduction to basic High Throughput Sequencing data analysis: a case of Virus Detection</h2>
@@ -122,24 +144,22 @@
 <li><a href="http://kaiju.binf.ku.dk">Kaiju</a></li>
 </ul>
 <p>The ones that we will use on our server:
-<em> <a href="https://github.com/najoshi/sickle">Sickle</a>
-</em> <a href="http://bioinf.spbau.ru/spades">SPAdes</a>
-<em> <a href="http://abacas.sourceforge.net">Abacas</a>
-</em> <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a></p>
+* <a href="https://github.com/najoshi/sickle">Sickle</a>
+* <a href="http://bioinf.spbau.ru/spades">SPAdes</a>
+* <a href="http://abacas.sourceforge.net">Abacas</a>
+* <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a></p>
 <p>The ones that you install on your machine:
-<em> <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>
-</em> <a href="http://ugene.net">Ugene</a></p>
+* <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>
+* <a href="http://ugene.net">Ugene</a></p>
 <h3 id="login-to-the-training-server-and-find-the-dataset">Login to the training server and find the dataset</h3>
 <p>We will login to a training server called eBioKit by typing the following command in the terminal (replacing the X by the number that we give to you):</p>
 <pre><code>ssh studentX@77.235.253.122
 </code></pre>
-
 <p>This server will be use for running some tools during all this tutorial.
 The Illumina reads files (R1 and R2) are in your home directory:</p>
 <pre><code>965_S11_L001_R1_001.fastq.gz
 965_S11_L001_R2_001.fastq.gz
 </code></pre>
-
 <h2 id="quality-control">Quality control</h2>
 <h3 id="fastqc">FastQC</h3>
 <p>To check the quality of the sequence data we will use a tool called FastQC. With this you can check things like read length distribution, quality distribution across the read length, sequencing artifacts and much more.</p>
@@ -168,7 +188,6 @@ and you will get the Graphical User Interface (GUI) in which you can open your d
 -o trimmed_output_file1.fastq -p trimmed_output_file2.fastq \
 -s trimmed_singles_file.fastq -q 30
 </code></pre>
-
 <p>What did the trimming do to the per-base sequence quality, the per sequence quality scores and the sequence length distribution? Run FastQC again to find out.</p>
 <p>You copy the trimmed files produced by Sickle on your laptop and gzip them for FastQC and for the next step.</p>
 <p>On your laptop, in your working directory:</p>
@@ -176,7 +195,6 @@ and you will get the Graphical User Interface (GUI) in which you can open your d
 gzip trimmed_file1.fastq
 gzip trimmed_file2.fastq
 </code></pre>
-
 <h2 id="taxonomic-classification-with-kaiju">Taxonomic classification with Kaiju</h2>
 <p>We will run a taxonomic classification of our good quality reads at the <a href="http://kaiju.binf.ku.dk">Kaiju server</a></p>
 <p>Go to the WebServer tab, fill in the needed information, upload your reads files and select the database to use: NCBI nr Bacteria, Archaea, Viruses</p>
@@ -186,7 +204,6 @@ gzip trimmed_file2.fastq
 <p>In order to get longer sequences from the detected virus, and hopefully to obtain its complete genome, we will be using the SPAdes assembler to assemble our metagenomic dataset. As SPAdes is resource intensive and we are limited on time the resulting assembly is pre-processed.</p>
 <pre><code>spades.py -o SPAdes --meta --only-assembler -k 21,33,55,77,99,127 --pe1-1 Forward_Fasta.fastq --pe1-2 Reverse_Fasta.fastq
 </code></pre>
-
 <p>This will produce a series of outputs. The scaffolds will be in fasta format. You can find the results from the SPAdes assembly here</p>
 <p>SPAdes output is organised as follows:
    * contigs.fasta – resulting contigs
@@ -216,7 +233,6 @@ You should look at the contigs.fasta file avilable in the top directory of the a
 <p>ABACAS is intended to rapidly contiguate (align, order, orientate) , visualize and design primers to close gaps on shotgun assembled contigs based on a reference sequence. It uses MUMmer to find alignment positions and identify syntenies of assembly contigs against the reference. The output is then processed to generate a pseudomolecule taking overlaping contigs and gaps in to account. MUMmer's alignment generating programs, Nucmer and Promer are used followed by the 'delta-filter' utility function. Users could also run tblastx on contigs that are not used to generate the pseudomolecule.</p>
 <pre><code>abacas -r astro_ref.fasta -q SPAdes_Astro/contigs.fasta -p nucmer -d -m
 </code></pre>
-
 <p>You will find <a href="http://www.ebi.ac.uk/ena/data/view/JQ340310">the</a> reference genome to use. Inspect the resulting pseudo-molecule query_referens.fasta.</p>
 <h2 id="mapping-the-reads-on-the-viral-contigs">Mapping the reads on the viral contigs</h2>
 <p>After producing a putative pseudo-molecule with abacas orientation of contigs we proceed to re-mapp the trimmed data (from the sickle trimming) using Bowtie2. This enables us to get a rough estimate on how well our sequencing data covers the putative new genome as well as provide other useful statistics. We will use Bowtie2 for mapping the reads back to the obtained viral contigs. Bowtie2 requires a reference genome tu build an index from, we will use the newly created pseudo molecule for that. Additionally, Bowtie2 requires fastq data, of which we have two files that are trimmed.</p>
@@ -228,11 +244,11 @@ bowtie2-build -q astro_psudo.fasta astro_psudo_index
 # Usage: bowtie2 [options]* -x &lt;bt2-idx&gt; {-1 &lt;m1&gt; -2 &lt;m2&gt; | -U &lt;r&gt;} [-S &lt;sam&gt;]
 bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fastq -2 data/trimmed_965_S11_L001_R2_001.fastq  -S astro_psudo_map.sam
 </code></pre>
-
 <p>Inspect the resulting statistics. How many reads were mapped towards the psudo-molecule?</p>
 <p>Download the .sam file and open it in UGENE. Inspect the coverage statistics.</p>
 <h2 id="genes-prediction-and-functional-annotation">Genes prediction and functional annotation</h2>
 <p>We will use <a href="http://exon.gatech.edu/GeneMark/">GeneMark</a> for predicting the genes from our assembled genome.</p></div>
+            </div>
         </div>
 
         <footer class="col-md-12">
@@ -246,21 +262,21 @@ bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fa
         <script src="../js/base.js" defer></script>
         <script src="../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
             </div>
             <div class="modal-body">
                 <p>
                     From here you can search these documents. Enter
                     your search terms below.
                 </p>
-                <form role="form">
+                <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
@@ -269,12 +285,12 @@ bowtie2 --local -N 1 -x astro_psudo_index -1 data/trimmed_965_S11_L001_R1_001.fa
             </div>
         </div>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
             </div>
             <div class="modal-body">
               <table class="table">
