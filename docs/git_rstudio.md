@@ -54,7 +54,7 @@ which git
 and `git --version` to see its version:
 ```
 git --version
-## git version 2.15.1
+## git version 2.19.2
 ```
 If you are successful, that’s great! You have Git already. No need to install! Move on to step 3.
 
@@ -65,7 +65,7 @@ Mac OS users might get an immediate offer to install command line developer tool
 
 #### Install Git on MacOS
 
-Please follow [this link](http://happygitwithr.com/install-git.html#mac-os), read paragraph 7.3 and choose one of the 3 first options.
+Please follow [this link](http://happygitwithr.com/install-git.html#mac-os), read paragraph 6.3 and choose one of the 3 first options.
 Once git is installed, you can move to Step 3.
 
 
