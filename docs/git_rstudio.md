@@ -1,5 +1,7 @@
 # Git in RStudio
 
+You can find my presentation **Tools and resources for reproducible research** [here](https://osf.io/p9rkb/download)
+
 ## Version control in Rstudio with Git and GitHub
 
 *This tutorial uses some parts of [Happy Git and GitHub for the useR](http://happygitwithr.com) by Jennifer Bryan.*
@@ -32,7 +34,7 @@ That being said, you can now register an account with GitHub. It’s free!
 ## Step 2: Install Git on your computer
 
 ### For Windows users
-Install Git for Windows, also known as “Git Bash”, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing, but you might encounter them elsewhere and I want you to be well-informed.
+Install [Git for Windows](https://gitforwindows.org), also known as “Git Bash”, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing, but you might encounter them elsewhere and I want you to be well-informed.
 
 We like this because Git for Windows leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the “Git Bash” shell will be useful as you venture outside of R/RStudio.
 
@@ -137,7 +139,7 @@ In the beginning we will prepare our working environment, and then we will creat
 Let's get organised! Within your project folder, you will create 3 other folders (you can do it directly from RStudio): *data, results, scripts*
 
 Download the data file `surveys_complete.csv` from here:
-[https://osf.io/9zkwm/download]().
+[https://osf.io/9zkwm/download](https://osf.io/9zkwm/download).
 Then place it in the `data/` subfolder of your R project
 
 ### Creating the script
