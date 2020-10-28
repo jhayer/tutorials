@@ -7,7 +7,7 @@ Collection of tutorials on various bioinformatics topics
 First clone the repository and install mkdocs and the theme using pipenv
 
 ```
-git clone https://github.com/HadrienG/tutorials.git
+git clone https://github.com/jhayer/tutorials.git
 cd tutorials
 pipenv install
 ```
